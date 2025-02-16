@@ -1,0 +1,31 @@
+{
+    "manifest_version": 3,
+    "name": "Sign Language Video Translator",
+    "version": "1.0",
+    "description": "Translates video content into sign language.",
+    "permissions": ["identity", "storage", "scripting", "activeTab"],
+    "host_permissions": ["<all_urls>"],
+    "oauth2": {
+      "client_id": "969535343275-ps630iaiv4voqeil9btiq7dj0pl7k5cj.apps.googleusercontent.com.apps.googleusercontent.com",
+      "scopes": ["openid", "email", "profile"]
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+      }
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://*.youtube.com/*", "*://*.youtu.be/*"],
+        "js": ["content.js"],
+        "run_at": "document_idle"
+      }
+    ]
+  }
+  
