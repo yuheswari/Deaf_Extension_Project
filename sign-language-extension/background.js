@@ -25,13 +25,25 @@ function fetchUserInfo(token) {
 // Handle authentication & translation requests from popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "login") {
+        console.log("🔑 Login requested...");
         authenticate();
+        sendResponse({ success: true, message: "Login initiated." });
+
     } else if (request.action === "translate_video") {
         console.log("📥 Received video URL:", request.videoUrl);
 
-        // Placeholder: Process the video URL (Implement AI translation here)
-        let fakeTranslation = "👐 Sign language translation for: " + request.videoUrl;
-        
-        sendResponse({ success: true, message: fakeTranslation });
+        if (!request.videoUrl) {
+            console.error("⚠️ No video URL provided!");
+            sendResponse({ success: false, message: "No video URL provided!" });
+            return;
+        }
+
+        // Simulated translation process (Replace with actual AI translation logic)
+        let fakeTranslation = `👐 Sign language translation available for: ${request.videoUrl}`;
+
+        // Send structured response
+        sendResponse({ success: true, message: fakeTranslation, url: request.videoUrl });
+
+        console.log("✅ Translation response sent.");
     }
 });

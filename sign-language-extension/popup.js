@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("📄 Popup loaded!");
 
     document.getElementById("translateButton").addEventListener("click", function () {
-        const videoUrl = document.getElementById("videoUrlInput").value; // Get video URL from input
+        const videoUrl = document.getElementById("videoUrlInput").value; 
 
         if (videoUrl) {
             console.log("📤 Sending video URL to background script:", videoUrl);
@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const responseElement = document.getElementById("responseMessage");
 
                 if (response && response.success) {
-                    responseElement.innerText = response.message;
+                    responseElement.innerHTML = `👐 <strong>Sign language translation for:</strong><br> 
+                    <a href="${videoUrl}" target="_blank">${videoUrl}</a>`;
                     responseElement.style.color = "green";
                 } else {
                     responseElement.innerText = "❌ Error: No response received!";
@@ -25,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Handle login button
     document.getElementById("loginButton").addEventListener("click", function () {
         console.log("🔑 Requesting authentication...");
         chrome.runtime.sendMessage({ action: "login" });
